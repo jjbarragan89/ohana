@@ -49,17 +49,12 @@ export class Tab3Page implements OnInit ,OnDestroy {
 
     if (role === 'ok') {
       data.id = uuid();
-      console.log(data)
       const esquemaProducto = environment.esquemaProductos;
       this.localstorageservice.saveProducto(esquemaProducto, data)
     }
   }
 
   async urlImagen(urlImagen:string){
-    console.log(urlImagen,"fadfadsfa",{
-      path: urlImagen,
-      directory: Directory.Documents,
-    })
     const readFile = await Filesystem.readFile({
       path: urlImagen,
       directory: Directory.Documents,
