@@ -1,0 +1,35 @@
+<ion-content>
+  <div class="container block p-5">
+    <h3 class="m-5 text-center">Producto nuevo</h3>
+  
+    <form class="row">
+      <label for="nombre">Nombre*</label>
+      <input [(ngModel)]="productoNuevo.nombre" type="text" name="nombre" class="form-control mb-4 p-2 my-3" placeholder="Vela de vaso">
+  
+      <label  for="descripcion">Descripcion del producto*</label>
+      <input [(ngModel)]="productoNuevo.descripcion" type="text" name="descripcion" class="form-control mb-4 p-2 my-3" placeholder="Tamaño mediano 12cm alto x 8cm ancho capacidad 35oz">
+  
+      <label for="precio">Precio*</label>
+      <input [(ngModel)]="productoNuevo.precio" type="number" name="precio" class="form-control mb-4 p-2 my-3" placeholder="Ej: 28500">
+   
+      <label for="tipo">Tipo</label>
+      <select [(ngModel)]="productoNuevo.tipoProducto" name="tipo" id="tipo" class="form-select form-select-lg my-3">
+        <option *ngFor="let tipo of keys(tiposProductos)" value="{{tipo}}">{{tipo}}</option>
+      </select>
+
+      <label for="estado">Estado</label>
+      <select [(ngModel)]="productoNuevo.estado" name="estado" id="estado" class="form-select form-select-lg my-3">
+        <option *ngFor="let estado of keys(estadosProductos)" value="{{estado}}">{{estado}}</option>
+      </select>
+
+      <ion-img style="margin:auto;width: 90%; height: 250px;" *ngIf="productoNuevo.imagen != ''" [src]="productoNuevo.imagen" alt=""></ion-img>
+      
+      <button class="btn btn-primary lg" (click)="camara()">Tomar foto</button>
+      <button [ngClass]="{disabled:productoIncompleto()}" class="btn btn-info lg" (click)="emitir()">Crear</button>
+      <button class="btn btn-danger lg" (click)="cerrarModal()">Cancelar</button>
+    </form>
+  
+  </div>
+
+  
+</ion-content>

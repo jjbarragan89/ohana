@@ -1,0 +1,7 @@
+{
+  "name": "Ohana",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

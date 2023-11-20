@@ -1,0 +1,29 @@
+.estado-pedido-proceso{
+    background-color: red;
+    max-width: 5px !important;
+    border-radius: 10px;
+    margin-top: 5px;
+}
+
+.estado-pedido-pendiente{
+    background-color: orange;
+    max-width: 5px !important;
+    border-radius: 10px;
+    margin-top: 5px;
+}
+
+.estado-pedido-entregado{
+    background-color: green;
+    max-width: 5px !important;
+    border-radius: 10px;
+    margin-top: 5px;
+}
+
+.separador-pedido-items{
+    height: 2px;
+    border: 1px solid gray;
+    width: 90%;
+    margin: auto;
+    background-color: gray;
+    border-radius: 4px;
+}
