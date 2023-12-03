@@ -22,7 +22,9 @@ export class CrearProductoComponent  implements OnInit {
     precio: 0,
     imagen: '',
     tipoProducto:this.tiposProductos.Vela,
-    estado: EstadosProductos.Activo
+    estado: EstadosProductos.Activo,
+    inventario:0,
+    seleccionados:0
   };
 
   constructor( private modalCtrl:ModalController, private camaraService : CamaraService ) {

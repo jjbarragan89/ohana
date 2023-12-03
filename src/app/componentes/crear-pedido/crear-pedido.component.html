@@ -1,0 +1,26 @@
+<ion-content>
+  <div class="container block p-3">
+    <h3 class="m-5 text-center">Crear Pedido</h3>
+  
+    <form class="row">
+
+      <label for="cliente">Seleccione el cliente</label>
+      <ion-select name="cliente" (ionChange)="cambioCliente($event)"  class="">
+        <ion-select-option selected disabled>Seleccione un cliente...</ion-select-option>
+        <ion-select-option *ngFor="let cliente of clientes" value="{{cliente.id}}">{{cliente.nombre}}</ion-select-option>
+      </ion-select>
+
+      <label for="fecha_entrega">Fecha de entrega</label>
+      <ion-datetime (ionChange)="cambioFecha($event)" [value]="hoy" name="fecha_entrega"  min="2023-10-31T59:59:59" max="2040-12-31T23:59:59"></ion-datetime>
+
+
+      <button [ngClass]="{disabled:pedidoIncompleto()}" class="btn btn-info lg" (click)="emitir()">Crear pedido</button>
+      <button class="btn btn-danger lg" (click)="cerrarModal()">Cerrar</button>
+    </form>
+
+    
+  
+  </div>
+
+  
+</ion-content>

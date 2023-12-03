@@ -5,6 +5,8 @@
 export const environment = {
   production: false,
   esquemaProductos: "PRODUCTOS",
+  esquemaClientes: "CLIENTES",
+  esquemaPedido: "PEDIDOS",
 
 };
 

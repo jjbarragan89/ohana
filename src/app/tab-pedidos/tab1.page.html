@@ -7,135 +7,24 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Lista de pedidos</ion-title>
-    </ion-toolbar>
-  </ion-header>
 
-  <ion-grid>
+  <ion-grid *ngIf="!mostrarCarrito">
 
-    <ion-row #serepite>
-      <ion-col class="estado-pedido-proceso" size="1"></ion-col>
+     <ion-row *ngFor="let pedido of pedidos">
+      <ion-col class="estado-pedido-{{pedido.estado}}" size="1"></ion-col>
       <ion-col>
         <ion-list>
           <ion-item button="true">
-            <ion-label>Jeisson Barragán</ion-label>
-            <ion-note slot="end">Ver pedido</ion-note>
+            <ion-label>{{pedido.cliente.nombre}}</ion-label>
+            <ion-note (click)="irDetallePedido(pedido)" slot="end">Ver pedido</ion-note>
           </ion-item>
           <ion-item>
-            <ion-label>Estado: En proceso</ion-label>
-            <ion-note slot="end">12/12/2023</ion-note>
-          </ion-item>
-          <ion-item>
-            <ion-label>Total</ion-label>
-            <ion-note slot="end">$45.000</ion-note>
-          </ion-item>
-        </ion-list>
-      </ion-col>
-    </ion-row>
-
-    <hr class="separador-pedido-items">
-
-    <ion-row #serepite>
-      <ion-col class="estado-pedido-pendiente" size="1"></ion-col>
-      <ion-col>
-        <ion-list>
-          <ion-item button="true">
-            <ion-label>Otilia Castiblanco</ion-label>
-            <ion-note slot="end">Ver pedido</ion-note>
-          </ion-item>
-          <ion-item>
-            <ion-label>Estado: Pendiente entrega</ion-label>
-            <ion-note slot="end">12/12/2023</ion-note>
+            <ion-label>Estado: {{pedido.estado | uppercase}}</ion-label>
+            <ion-note slot="end"> {{pedido.fecha_entrega}}</ion-note>
           </ion-item>
           <ion-item>
             <ion-label>Total</ion-label>
-            <ion-note slot="end">$45.000</ion-note>
-          </ion-item>
-        </ion-list>
-      </ion-col>
-    </ion-row>
-     <hr class="separador-pedido-items">
-
-    <ion-row #serepite>
-      <ion-col class="estado-pedido-entregado" size="1"></ion-col>
-      <ion-col>
-        <ion-list>
-          <ion-item button="true">
-            <ion-label>Francelina Vanegas</ion-label>
-            <ion-note slot="end">Ver pedido</ion-note>
-          </ion-item>
-          <ion-item>
-            <ion-label>Estado: Entregado</ion-label>
-            <ion-note slot="end">12/12/2023</ion-note>
-          </ion-item>
-          <ion-item>
-            <ion-label>Total</ion-label>
-            <ion-note slot="end">$45.000</ion-note>
-          </ion-item>
-        </ion-list>
-      </ion-col>
-    </ion-row>
-     <hr class="separador-pedido-items">
-
-    <ion-row #serepite>
-      <ion-col class="estado-pedido-proceso" size="1"></ion-col>
-      <ion-col>
-        <ion-list>
-          <ion-item button="true">
-            <ion-label>Jeisson Barragán</ion-label>
-            <ion-note slot="end">Ver pedido</ion-note>
-          </ion-item>
-          <ion-item>
-            <ion-label>Estado: En proceso</ion-label>
-            <ion-note slot="end">12/12/2023</ion-note>
-          </ion-item>
-          <ion-item>
-            <ion-label>Total</ion-label>
-            <ion-note slot="end">$45.000</ion-note>
-          </ion-item>
-        </ion-list>
-      </ion-col>
-    </ion-row>
-     <hr class="separador-pedido-items">
-
-    <ion-row #serepite>
-      <ion-col class="estado-pedido-pendiente" size="1"></ion-col>
-      <ion-col>
-        <ion-list>
-          <ion-item button="true">
-            <ion-label>Otilia Castiblanco</ion-label>
-            <ion-note slot="end">Ver pedido</ion-note>
-          </ion-item>
-          <ion-item>
-            <ion-label>Estado: Pendiente entrega</ion-label>
-            <ion-note slot="end">12/12/2023</ion-note>
-          </ion-item>
-          <ion-item>
-            <ion-label>Total</ion-label>
-            <ion-note slot="end">$45.000</ion-note>
-          </ion-item>
-        </ion-list>
-      </ion-col>
-    </ion-row>
-     <hr class="separador-pedido-items">
-
-    <ion-row #serepite>
-      <ion-col class="estado-pedido-entregado" size="1"></ion-col>
-      <ion-col>
-        <ion-list>
-          <ion-item button="true">
-            <ion-label>Francelina Vanegas</ion-label>
-            <ion-note slot="end">Ver pedido</ion-note>
-          </ion-item>
-          <ion-item>
-            <ion-label>Estado: Entregado</ion-label>
-            <ion-note slot="end">12/12/2023</ion-note>
-          </ion-item>
-          <ion-item>
-            <ion-label>Total</ion-label>
-            <ion-note slot="end">$45.000</ion-note>
+            <ion-note slot="end">{{pedido.calcularValorPedido() | currency}}</ion-note>
           </ion-item>
         </ion-list>
       </ion-col>
@@ -143,5 +32,12 @@
      <hr class="separador-pedido-items">
 
   </ion-grid>
-  
+
+  <app-producto (emitePedido)="handlerPedidoEmit($event)" [ngClass]="{'d-none':!mostrarCarrito}"  [esCarrito]="true"> </app-producto>
+
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button color="tertiary" (click)="abrirCrearPedido()"> 
+      <ion-icon name="add"> + </ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>

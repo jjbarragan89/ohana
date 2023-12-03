@@ -19,7 +19,9 @@ export class EditarProductoComponent  implements OnInit {
     precio: 0,
     imagen: '',
     tipoProducto:this.tiposProductos.Vela,
-    estado:this.estadosProductos.Activo
+    estado:this.estadosProductos.Activo,
+    inventario:0,
+    seleccionados:0
   };
 
   public keys = Object.keys

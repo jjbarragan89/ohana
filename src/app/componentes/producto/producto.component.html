@@ -1,0 +1,46 @@
+
+
+<ion-button *ngIf="esCarrito && carrito.length > 0 && mostrarCrearPedidoBtn" 
+  expand="block" 
+  fill="outline"
+  (click)="crearPedido()"
+  color="primary">Crear pedido {{calcularValorPedido() | currency}}</ion-button>
+
+<ion-grid>
+  <ion-row>
+    <ion-col *ngFor="let producto of productos; let index = index" size="6">
+      <ion-card (click)="abrirEditarModal(producto)">
+        <img *ngIf="producto.imagen != ''; else imgVacia" src="{{producto.imagen}}" alt="" class="producto-img">
+        <ng-template #imgVacia>
+          <img src="../../../assets/images/" alt="" class="producto-img">
+        </ng-template>
+        <ion-card-header>
+          <ion-card-subtitle>
+            {{producto.nombre + " " +producto.descripcion +" : "+ producto.tipoProducto | slice : 0 : 60  }}
+          </ion-card-subtitle>
+        </ion-card-header>
+        
+        <ion-card-content >
+          {{producto.precio | currency  }}
+        </ion-card-content>
+
+        <ion-grid [fixed]="true" *ngIf="esCarrito" (click)="$event.stopPropagation()">
+
+          <ion-row>
+            <ion-col size="auto" (click)="quitarCantidad($event, index)"> <ion-icon size="large" name="remove-circle-outline"></ion-icon></ion-col>
+            <ion-col size="4"><input style="width: 100%; height: 32px;padding: 5px;" disabled type="number" value="{{producto.seleccionados}}"></ion-col>
+            <ion-col push="1" size="auto"  (click)="agregarCantidad($event, index)"><ion-icon size="large" name="add-circle-outline"></ion-icon></ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-card-content *ngIf="esCarrito && producto.seleccionados > 0">
+              {{producto.precio * producto.seleccionados | currency  }}
+            </ion-card-content>
+          </ion-row>
+
+        </ion-grid>
+      
+      </ion-card>
+    </ion-col>
+  </ion-row>
+</ion-grid>

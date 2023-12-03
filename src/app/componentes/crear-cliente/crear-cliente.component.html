@@ -1,0 +1,31 @@
+<ion-content>
+  <div class="container block p-5">
+    <h3 class="m-5 text-center">Cliente nuevo</h3>
+  
+    <form class="row">
+      <label for="nombre">Nombre*</label>
+      <input [(ngModel)]="cliente.nombre" type="text" name="nombre" class="form-control mb-4 p-2 my-3" placeholder="Anita Lopez">
+  
+      <label for="canal">Canal</label>
+      <select [(ngModel)]="cliente.canal" name="canal" id="canal" class="form-select form-select-lg my-3">
+        <option disabled value="">Seleccionar</option>
+        <option *ngFor="let canal of keys(canales)" value="{{canal}}">{{canal}}</option>
+      </select>
+
+      <label  for="identificador">Identificador del canal*</label>
+      <input [(ngModel)]="cliente.identificadorCanal" type="text" name="identificador" class="form-control mb-4 p-2 my-3" placeholder="@ohanacandles_">
+      
+      <label  for="genero">Genero*</label>
+      <select [(ngModel)]="cliente.genero" name="genero" id="genero" class="form-select form-select-lg my-3">
+        <option disabled value="">Seleccionar</option>
+        <option *ngFor="let genero of keys(generos)" value="{{genero}}">{{genero}}</option>
+      </select>
+      
+      <button [ngClass]="{disabled:clienteIncompleto()}" class="btn btn-info lg" (click)="emitir()">Crear</button>
+      <button class="btn btn-danger lg" (click)="cerrarModal()">Cancelar</button>
+    </form>
+  
+  </div>
+
+  
+</ion-content>

@@ -5,6 +5,8 @@ export interface IProducto{
     tipoProducto:string
     imagen?:string;
     estado?:string;
+    seleccionados:number
+    inventario:number
 }
 
 
@@ -16,6 +18,8 @@ export class Producto implements IProducto{
     imagen?: string | undefined;
     tipoProducto: string;
     estado:string;
+    seleccionados: number = 0;
+    inventario: number = 0;
 
     constructor(id:string, nombre:string, precio:number, descripcion:string, tipoProducto:string){
         this.id = id

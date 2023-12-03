@@ -3,7 +3,7 @@ import { ModalController } from '@ionic/angular';
 import { CrearProductoComponent } from 'src/app/componentes/crear-producto/crear-producto.component';
 import { environment } from 'src/environments/environment';
 import { LocalstorageService } from 'src/app/servicios/localstorage.service'
-import { IProducto, Producto } from '../modelos/productos/producto';
+import {  Producto } from '../modelos/productos/producto';
 import { Filesystem, Directory } from '@capacitor/filesystem';
 import {v4 as uuid} from 'uuid'
 import { EditarProductoComponent } from '../componentes/editar-producto/editar-producto.component';
@@ -21,8 +21,13 @@ export class Tab3Page implements OnInit ,OnDestroy {
   ngOnInit(): void {
     this.localstorageservice.productosSubject.subscribe( (productos)  =>{
       this.productos = productos
+      console.log("muestra producto subcribe",productos);
+
       this.productos.forEach(producto => {
-        this.urlImagen(producto.imagen!)
+        if(producto.imagen){
+          this.urlImagen(producto.imagen!)
+
+        }
       });
     } )
 
@@ -59,7 +64,11 @@ export class Tab3Page implements OnInit ,OnDestroy {
       path: urlImagen,
       directory: Directory.Documents,
     });
-    return `data:image/jpeg;base64,${readFile.data}`
+    console.log(readFile, "OJOOOOO cacccccc")
+    if(readFile){
+      return `data:image/jpeg;base64,${readFile.data}`
+    }
+    return ''
   }
 
   async abrirEditarModal(producto:Producto){

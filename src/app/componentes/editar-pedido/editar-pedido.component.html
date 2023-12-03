@@ -1,0 +1,83 @@
+<ion-content>
+  <div class="container block p-3">
+    <h3 class="m-5 text-center">Pedido</h3>
+  
+    <form class="row">
+
+      <div class="cabecera-pedido">
+        <div>
+          <span class="title"><strong>Cliente: </strong></span> <span style="float: right;">{{pedido.cliente.nombre}}</span>
+        </div>
+        <div>
+          <span class="title"><strong>Fecha de entrega:</strong></span> <span style="float: right;">{{pedido.fecha_entrega | date}}<ion-icon style="margin-left: 5px;" name="refresh-outline" color="tertiary" (click)="mostrarFecha()"></ion-icon></span>
+        </div>
+        <div>
+          <span class="title"><strong>Fecha de creacion:</strong></span> <span style="float: right;">{{pedido.fecha_creacion | date}}</span>
+        </div>
+        <div>
+          <span class="title"><strong>Estado: </strong></span> <span style="float: right;">{{pedido.estado | titlecase}} <ion-icon (click)="mostrarEstado()" style="margin-left: 5px;" name="refresh-outline" color="tertiary"></ion-icon></span>
+        </div>
+
+        <div>
+          <span class="title"><strong>Total: </strong></span> <span style="float: right;">{{total | currency}}</span>
+        </div>
+      </div>
+
+
+      <!-- mostrar productos -->
+      <ion-grid class="productos-pedido">
+        <ion-row *ngIf="mostrarCambioFecha">
+          <ion-datetime [(ngModel)]="pedido.fecha_entrega" name="fecha_entrega" presentation="date" [preferWheel]="true"></ion-datetime>
+        </ion-row>
+        <ion-row *ngIf="mostrarCambioEstado">
+          <ion-select name="estado" [(ngModel)]="pedido.estado"  class="">
+            <ion-select-option selected disabled>Seleccione un estado...</ion-select-option>
+            <ion-select-option *ngFor="let estado of keys(estados)" value="{{estado | lowercase}}">{{estado}}</ion-select-option>
+          </ion-select>
+        </ion-row>
+        <ion-row>
+          <ion-col *ngFor="let producto of productos; let index = index" size="6">
+            <ion-card>
+              <img *ngIf="producto.imagen != ''; else imgVacia" src="{{producto.imagen}}" alt="" class="producto-img">
+              <ng-template #imgVacia>
+                <img src="../../../assets/images/" alt="" class="producto-img">
+              </ng-template>
+              <ion-card-header>
+                <ion-card-subtitle>
+                  {{producto.nombre + " " +producto.descripcion +" : "+ producto.tipoProducto | slice : 0 : 60  }}
+                </ion-card-subtitle>
+              </ion-card-header>
+              
+              <ion-card-content >
+                {{producto.precio | currency  }}
+              </ion-card-content>
+      
+              <ion-grid [fixed]="true">
+      
+                <ion-row>
+                  <ion-col size="auto" (click)="quitarCantidad($event, index)"> <ion-icon size="large" name="remove-circle-outline"></ion-icon></ion-col>
+                  <ion-col size="4"><input style="width: 100%; height: 32px;padding: 5px;" disabled type="number" value="{{producto.seleccionados}}"></ion-col>
+                  <ion-col push="1" size="auto"  (click)="agregarCantidad($event, index)"><ion-icon size="large" name="add-circle-outline"></ion-icon></ion-col>
+                </ion-row>
+      
+                <ion-row>
+                  <ion-card-content>
+                    {{producto.precio * producto.seleccionados | currency  }}
+                  </ion-card-content>
+                </ion-row>
+      
+              </ion-grid>
+            
+            </ion-card>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <button *ngIf="total != 0" [ngClass]="{disabled:pedidoIncompleto()}" class="btn btn-info lg" (click)="emitir()">Modificar pedido {{total | currency}}</button>
+      <button *ngIf="total == 0 && pedido.estado !='cancelado'" class="btn btn-info lg" (click)="dismiss('ko')">Cancelar pedido</button>
+      <button class="btn btn-danger lg" (click)="cerrarModal()">Cerrar</button>
+    </form>
+
+  </div>
+
+  
+</ion-content>
