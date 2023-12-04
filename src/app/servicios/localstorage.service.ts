@@ -13,6 +13,7 @@ export class LocalstorageService {
   public productosSubject:Subject<any> = new Subject();
   public clientesSubject:Subject<any> = new Subject();
   public pedidosSubject:Subject<any> = new Subject();
+  public buscadorSubject:Subject<any> = new Subject();
 
   constructor() { }
 
@@ -94,9 +95,7 @@ export class LocalstorageService {
       }
       localStorage.setItem(esquemaNombre, JSON.stringify(esquema))
       let pedidos:Pedido[]=[];
-      console.log("el esquema de pedidos", esquema)
       pedidos = this.generarModelosPedidos(esquema)
-      console.log("el esquema de pedidos despues de crearlos como modelos", pedidos)
 
       this.pedidosSubject.next(pedidos);
     }else{
@@ -127,5 +126,9 @@ export class LocalstorageService {
       pedidos.push(pedido)
     });
     return pedidos;
+  }
+
+  onBuscar(termino:any){
+    this.buscadorSubject.next(termino)
   }
 }

@@ -1,0 +1,34 @@
+ion-datetime {
+  border-radius: 16px;
+  box-shadow: rgba(var(--ion-color-rose-rgb), 0.3) 0px 10px 15px -3px;
+  max-width: 90%;
+  height: 400px;
+  color: black;
+  margin: auto;
+  margin-top: 20px;
+}
+
+.proceso{
+  background-color: red;
+
+}
+
+.pendiente{
+  background-color: orange;
+
+}
+
+.entregado{
+  background-color: green;
+
+}
+
+.cancelado{
+  background-color: gray;
+
+}
+
+.todos{
+  background-color: blueviolet;
+
+}

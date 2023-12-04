@@ -17,6 +17,9 @@ export class Pedido implements  IPedido{
     cliente: Cliente ;
     productos: Producto[];
     estado:string;
+    date?:string
+    textColor?:string
+    backgroundColor?:string
 
     public constructor(id:string, fecha_entrega:string, cliente:Cliente, productos:Producto[], estado?:string){
         this.id = id

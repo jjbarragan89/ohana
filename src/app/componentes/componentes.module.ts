@@ -10,6 +10,7 @@ import { CrearClienteComponent } from './crear-cliente/crear-cliente.component';
 import { EditarClienteComponent } from './editar-cliente/editar-cliente.component';
 import { ProductoComponent } from './producto/producto.component';
 import { EditarPedidoComponent } from './editar-pedido/editar-pedido.component';
+import { CalendarioShowComponent } from './calendario/calendario.component';
 
 
 @NgModule({
@@ -27,6 +28,7 @@ import { EditarPedidoComponent } from './editar-pedido/editar-pedido.component';
     ProductoComponent,
     CrearPedidoComponent,    
     EditarPedidoComponent,
+    CalendarioShowComponent
   ],
   exports: [
     CrearProductoComponent, 
@@ -37,6 +39,8 @@ import { EditarPedidoComponent } from './editar-pedido/editar-pedido.component';
     ProductoComponent,
     CrearPedidoComponent,    
     EditarPedidoComponent,
+    CalendarioShowComponent
+
   ],
 })
 export class ComponentesModule {}

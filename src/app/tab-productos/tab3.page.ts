@@ -16,12 +16,14 @@ import { EditarProductoComponent } from '../componentes/editar-producto/editar-p
 export class Tab3Page implements OnInit ,OnDestroy {
 
   productos:Producto[] = [];
+  buscar:string= ''
+
   constructor(private modalCtrl: ModalController,
               private localstorageservice:LocalstorageService) {}
+
   ngOnInit(): void {
     this.localstorageservice.productosSubject.subscribe( (productos)  =>{
       this.productos = productos
-      console.log("muestra producto subcribe",productos);
 
       this.productos.forEach(producto => {
         if(producto.imagen){
@@ -33,6 +35,7 @@ export class Tab3Page implements OnInit ,OnDestroy {
 
     this.init()
   }
+
   ngOnDestroy(): void {
     this.localstorageservice.productosSubject.unsubscribe();
   }
@@ -60,14 +63,21 @@ export class Tab3Page implements OnInit ,OnDestroy {
   }
 
   async urlImagen(urlImagen:string){
-    const readFile = await Filesystem.readFile({
-      path: urlImagen,
-      directory: Directory.Documents,
-    });
-    console.log(readFile, "OJOOOOO cacccccc")
-    if(readFile){
-      return `data:image/jpeg;base64,${readFile.data}`
+    if(urlImagen != '' && urlImagen!= undefined){
+      try{
+        const readFile = await Filesystem.readFile({
+          path: urlImagen,
+          directory: Directory.Documents,
+        });
+        if(readFile){
+          return `data:image/jpeg;base64,${readFile.data}`
+        }
+      }catch(err){
+        return ''
+      }
+
     }
+    
     return ''
   }
 
@@ -81,6 +91,10 @@ export class Tab3Page implements OnInit ,OnDestroy {
       const esquemaProducto = environment.esquemaProductos;
       this.localstorageservice.saveProducto(esquemaProducto, data)
     }
+  }
+
+  onBuscar(termino:any){
+    this.localstorageservice.onBuscar(termino)
   }
 
 }

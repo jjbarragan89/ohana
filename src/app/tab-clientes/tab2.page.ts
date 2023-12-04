@@ -26,7 +26,6 @@ export class Tab2Page implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.localstorageservice.clientesSubject.subscribe( clientes =>{
       this.clientes = clientes
-      console.log("llega el subscriptor de clientes", clientes)
     })
 
     this.init()
@@ -58,6 +57,25 @@ export class Tab2Page implements OnInit, OnDestroy {
     const {data, role} = await modal.onWillDismiss()
     if(role == 'ok'){
       this.localstorageservice.saveCliente(environment.esquemaClientes, data)
+    }
+  }
+
+  onBuscar(termino:any){
+    if(termino == "" || termino == undefined){
+      this.init()
+    }else{
+      this.clientes = this.clientes.filter((cliente:Cliente)=>{
+        if(
+          cliente.nombre.toLowerCase().includes(termino.toLowerCase()) || //cliente.nombre
+          cliente.canal.toLowerCase().includes(termino.toLowerCase()) || //cliente.canal
+          cliente.genero.toLowerCase().includes(termino.toLowerCase()) || //cliente.genero
+          cliente.identificadorCanal.toLowerCase().includes(termino.toLowerCase())  //cliente.identificadorCanal
+          
+          ){
+          return cliente;
+        }
+        return
+      })
     }
   }
 

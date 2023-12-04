@@ -1,6 +1,6 @@
 <ion-content>
   <div class="container block p-5">
-    <h3 class="m-5 text-center">Cliente nuevo</h3>
+    <h3 class="m-5 text-center">Descripción del cliente</h3>
   
     <form class="row">
       <label for="nombre">Nombre*</label>
@@ -18,7 +18,7 @@
         <option *ngFor="let genero of keys(generos)" value="{{genero}}">{{genero}}</option>
       </select>
       
-      <button [ngClass]="{disabled:clienteIncompleto()}" class="btn btn-info lg" (click)="emitir()">Crear</button>
+      <button [ngClass]="{disabled:clienteIncompleto()}" class="btn btn-info lg" (click)="emitir()">Modificar</button>
       <button class="btn btn-danger lg" (click)="cerrarModal()">Cancelar</button>
     </form>
   

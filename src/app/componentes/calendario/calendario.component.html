@@ -1,0 +1,15 @@
+<ion-grid>
+
+  <ion-row>
+    <ion-col><ion-chip class="proceso" (click)="filtrarPorEstado('proceso')" [outline]="true">Proceso {{proceso}}</ion-chip> </ion-col>
+    <ion-col><ion-chip class="pendiente" (click)="filtrarPorEstado('pendiente')" [outline]="true">Pendiente {{pendiente}}</ion-chip> </ion-col>
+    <ion-col><ion-chip class="entregado" (click)="filtrarPorEstado('entregado')" [outline]="true">Entregado {{entregado}}</ion-chip> </ion-col>
+    <ion-col><ion-chip class="cancelado" (click)="filtrarPorEstado('cancelado')" [outline]="true">Cancelado {{cancelado}}</ion-chip> </ion-col>
+    <ion-col><ion-chip class="todos" (click)="filtrarPorEstado('todos')" [outline]="true">Todos {{todos}}</ion-chip> </ion-col>
+  </ion-row>
+</ion-grid>
+
+<ion-datetime [highlightedDates]="pedidos" presentation="date" (ionChange)="buscarPedido($event)">
+    <span slot="title">{{title}}</span>
+    <span>info de pedido si hay</span>
+</ion-datetime>

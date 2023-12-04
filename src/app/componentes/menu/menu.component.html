@@ -1,3 +1,19 @@
-<p>
-  menu works!
-</p>
+<ion-header [translucent]="true">
+  <ion-toolbar color="tertiary">
+    <ion-buttons slot="secondary">
+      <ion-button (click)="toogleBuscador()">
+        <ion-icon slot="icon-only" name="search"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="primary">
+      <ion-button>
+        <ion-icon slot="icon-only" ios="ellipsis-horizontal" md="ellipsis-vertical"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>{{titulo_seccion}}</ion-title>
+  </ion-toolbar>
+  <ion-input class="buscador" placeholder="BUSCADOR" 
+    *ngIf="mostrarBuscador" fill="outline" [debounce]="600" 
+    (ionInput)="emitirBusqueda(buscador.value)" #buscador></ion-input>
+
+</ion-header>

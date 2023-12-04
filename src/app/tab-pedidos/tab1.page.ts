@@ -46,4 +46,30 @@ export class Tab1Page implements OnInit, OnDestroy {
       this.localstorageservice.savePedido(environment.esquemaPedido, data)
     }
   }
+
+  onBuscar(termino:any){
+    if(termino == "" || termino == undefined){
+      this.pedidos = this.localstorageservice.getPedidos(environment.esquemaPedido)
+    }else{
+      this.pedidos = this.pedidos.filter((pedido:Pedido)=>{
+        if(
+          pedido.cliente.nombre.toLowerCase().includes(termino.toLowerCase()) || //cliente.nombre
+          pedido.cliente.canal.toLowerCase().includes(termino.toLowerCase()) || //cliente.canal
+          pedido.cliente.genero.toLowerCase().includes(termino.toLowerCase()) || //cliente.genero
+          pedido.estado.toLowerCase().includes(termino.toLowerCase())  || //pedido.estado
+          pedido.productos.some(producto => producto.nombre.toLowerCase().includes(termino.toLowerCase())) || //producto.nombre
+          pedido.productos.some(producto => producto.descripcion.toLowerCase().includes(termino.toLowerCase())) || //producto.descripcion
+          pedido.productos.some(producto => producto.precio.toString().toLowerCase().includes(termino.toLowerCase()) ) || //producto.precio
+          pedido.productos.some(producto => producto.tipoProducto.toLowerCase().includes(termino.toLowerCase())) || //producto.tipoProducto
+          pedido.estado.toLowerCase().includes(termino.toLowerCase()) || //pedido.estado
+          pedido.fecha_entrega.toLowerCase().includes(termino.toLowerCase())  //pedido.fecha_entrega
+          
+          ){
+          return pedido;
+        }
+        return
+      })
+    }
+
+  }
 }

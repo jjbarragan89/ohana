@@ -1,0 +1,19 @@
+
+ion-toolbar{
+    margin-bottom: 10px;
+}
+.buscador {
+    margin: auto;
+    padding: 7px !important;
+    border: 2px solid var(--ion-color-tertiary);
+    border-radius: 5px;
+    background-color: #d1d1d1; /* Color de fondo oscuro */
+    color: #333; /* Color del texto claro */
+    width: 300px;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.buscador:focus {
+    background-color: #444; /* Color de fondo oscuro al enfocar */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); /* Sombra al enfocar */
+}

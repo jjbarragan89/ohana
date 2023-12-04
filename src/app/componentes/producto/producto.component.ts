@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Filesystem, Directory } from '@capacitor/filesystem';
 import { ModalController } from '@ionic/angular';
 import { Producto } from 'src/app/modelos/productos/producto';
@@ -15,7 +15,7 @@ import { EstadosPedidos, IPedido, Pedido } from 'src/app/modelos/pedidos/Pedido'
   templateUrl: './producto.component.html',
   styleUrls: ['./producto.component.scss'],
 })
-export class ProductoComponent  implements OnInit {
+export class ProductoComponent  implements OnInit, OnDestroy {
 
   @Input()
   mostrarCrearPedidoBtn:boolean=true;
@@ -27,8 +27,11 @@ export class ProductoComponent  implements OnInit {
   productos:Producto[] = [];
   @Input()
   pedido:IPedido | null = null ;
+
+
   constructor(private modalCtrl: ModalController,
               private localstorageservice:LocalstorageService) {}
+  
   ngOnInit(): void {
     this.localstorageservice.productosSubject.subscribe( (productos)  =>{
       this.productos = productos
@@ -39,8 +42,13 @@ export class ProductoComponent  implements OnInit {
       });
     } )
 
+    this.localstorageservice.buscadorSubject.subscribe( (busqueda) =>{
+      this.onBuscar(busqueda)
+    })
+
     this.init()
   }
+
   ngOnDestroy(): void {
     this.localstorageservice.productosSubject.unsubscribe();
   }
@@ -76,7 +84,6 @@ export class ProductoComponent  implements OnInit {
       path: urlImagen,
       directory: Directory.Documents,
     }).catch(err=>{
-      console.log(err)
     });
     if(readFile){
       return `data:image/jpeg;base64,${readFile.data}`
@@ -139,11 +146,28 @@ export class ProductoComponent  implements OnInit {
     if(role == 'ok'){
       data.id = uuid()
       const nuevoPedido = new Pedido(data.id, data.fecha_entrega, data.cliente, data.productos)
-      console.log("modelo de pedido", nuevoPedido)
       this.localstorageservice.savePedido( environment.esquemaPedido, nuevoPedido)
       this.carrito = []
       this.init()
       this.emitePedido.emit("reinicia")
+    }
+  }
+
+  onBuscar(termino:string){
+    if(termino == "" || termino == undefined){
+      this.init()
+    }else{
+      this.productos = this.productos.filter((producto:Producto)=>{
+
+        if(
+          producto.nombre.toLowerCase().includes(termino.toLowerCase()) || //producto.nombre
+          producto.descripcion.toLowerCase().includes(termino.toLowerCase()) || //producto.descripcion
+          producto.precio.toString().toLowerCase().includes(termino.toLowerCase()) //producto.precio
+          ){
+          return producto;
+        }
+        return
+      })
     }
   }
 }

@@ -20,6 +20,10 @@ const routes: Routes = [
         loadChildren: () => import('../tab-productos/tab3.module').then(m => m.Tab3PageModule)
       },
       {
+        path: 'tab4',
+        loadChildren: () => import('../tab-calendario/tab4.module').then(m => m.Tab4PageModule)
+      },
+      {
         path: '',
         redirectTo: '/tabs/tab',
         pathMatch: 'full'
